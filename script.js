@@ -9,3 +9,15 @@ play.addEventListener('click', function(){
         play.classList.replace('bi-pause-fill', 'bi-play-fill')
     }
 })
+const myProgressBar=document.getElementsByClassName('progress_in')[0]
+
+video.addEventListener("timeupdate",function(event){
+    // console.log(event)
+    let mycurrentTime=video.currentTime
+    let myDuration=video.duration
+    // console.log(mycurrentTime)
+    // console.log(myDuration)
+    let progresspercent=(mycurrentTime/myDuration) *100
+    console.log(progresspercent)
+    myProgressBar.style.width = `${progresspercent}%`
+})
