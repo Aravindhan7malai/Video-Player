@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <div class="video_container">
+    <div class="video_container" >
         <div class="video">
-            <video src="/assets/Learn Visual Studio Code in 7min (Official Beginner Tutorial).mp4"></video>
+            <video src="/assets/videoplayback.mp4"></video>
         </div>
         <div class="progress_bar">
             <div class="progress_out">
@@ -24,9 +24,6 @@
                 <div class="play">
                     <i class="bi bi-play-fill"></i>
                 </div>
-                <!-- <div class="pause">
-                    <i class="bi bi-pause-fill"></i>
-                </div> -->
                 <div class="volume">
                     <i id="volume" class="bi bi-volume-up-fill"></i>
                 </div>
@@ -50,19 +47,14 @@
                     <div class="current_time">0:00/</div>
                     <div class="total_timer">1.50</div>
                 </div>
-                <div class="full_time">
+                <div id="full_time" class="full_time">
                     <i class="bi bi-fullscreen"></i>
                 </div>
             </div>
-
         </div>
-
-
     </div>
 
-
     <script src="./script.js"></script>
-
 </body>
 
 </html>
