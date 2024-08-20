@@ -5,11 +5,12 @@ const currentTimeTotal = document.querySelector('.current_time');
 const myProgressBar = document.querySelector('.progress_in');
 const progressOut = document.querySelector('.progress_out');
 const volumeProgressOut = document.querySelector('.volumebar_out');
-const volumeProgressIn= document.querySelector('.volumebar_in');
-const volumeIcon=document.querySelector('#volume');
+const volumeProgressIn = document.querySelector('.volumebar_in');
+const volumeIcon = document.querySelector('#volume');
+const Speed = document.querySelector('#speed');
 
 
-play.addEventListener('click', function() {
+play.addEventListener('click', function () {
     if (video.paused) {
         video.play();
         play.classList.replace('bi-play-fill', 'bi-pause-fill');
@@ -19,7 +20,7 @@ play.addEventListener('click', function() {
     }
 });
 
-video.addEventListener("timeupdate", function() {
+video.addEventListener("timeupdate", function () {
     let myCurrentTime = video.currentTime;
     let myDuration = video.duration;
 
@@ -43,29 +44,42 @@ video.addEventListener("timeupdate", function() {
     currentTimeTotal.innerText = `${currentInMinutes}:${currentInSeconds}/`;
 });
 
-progressOut.addEventListener('click', function(event) {
+progressOut.addEventListener('click', function (event) {
     const progressBarWidth = progressOut.offsetWidth;
     const clickX = event.offsetX;
     const duration = video.duration;
     const newTime = (clickX / progressBarWidth) * duration;
     video.currentTime = newTime;
-    
-});
-volumeProgressOut.addEventListener('click', function(event){
-    // console.log(event)
-    const volumeProgressWidth=volumeProgressOut.offsetWidth;
-    const volumeClickX=event.offsetX;
-    const volumePercent=(volumeClickX/volumeProgressWidth)*100;
-    volumeProgressIn.style.width=`${volumePercent}%`
 
-    let volumeChanger=volumeClickX/volumeProgressWidth
-    video.volume=volumeChanger
+});
+volumeProgressOut.addEventListener('click', function (event) {
+    // console.log(event)
+    const volumeProgressWidth = volumeProgressOut.offsetWidth;
+    const volumeClickX = event.offsetX;
+    const volumePercent = (volumeClickX / volumeProgressWidth) * 100;
+    volumeProgressIn.style.width = `${volumePercent}%`
+
+    let volumeChanger = volumeClickX / volumeProgressWidth
+    video.volume = volumeChanger
 
 })
-volumeIcon.addEventListener('click', function(){
-    video.volume=0;
-    // bi-volume-up-fill
-    volumeIcon.classList.replace('bi-volume-up-fill', 'bi-volume-mute-fill')
-    // volumeIcon.classList.replace('bi-volume-mute-fill', 'bi-volume-up-fill')
-}
-)
+volumeIcon.addEventListener('click', function () {
+    // Check if the current class is 'bi-volume-mute-fill'
+    if (volumeIcon.classList.contains('bi-volume-mute-fill')) {
+        // Replace 'bi-volume-mute-fill' with 'bi-volume-up-fill'
+        volumeIcon.classList.replace('bi-volume-mute-fill', 'bi-volume-up-fill');
+        video.volume = 0.6;
+        volumeProgressIn.style.width = `${60}%`
+
+    
+
+    } else {
+        // Replace 'bi-volume-up-fill' with 'bi-volume-mute-fill'
+        volumeIcon.classList.replace('bi-volume-up-fill', 'bi-volume-mute-fill');
+        video.volume = 0;
+        volumeProgressIn.style.width = `${0}%`
+    }
+});
+Speed.addEventListener('change', function(){
+    video.playbackRate=Speed.value
+})
