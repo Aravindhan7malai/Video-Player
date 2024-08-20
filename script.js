@@ -8,7 +8,8 @@ const volumeProgressOut = document.querySelector('.volumebar_out');
 const volumeProgressIn = document.querySelector('.volumebar_in');
 const volumeIcon = document.querySelector('#volume');
 const Speed = document.querySelector('#speed');
-
+const fullScreenButton = document.querySelector('#full_time');
+const icon = fullScreenButton.querySelector('i');
 
 play.addEventListener('click', function () {
     if (video.paused) {
@@ -19,6 +20,13 @@ play.addEventListener('click', function () {
         play.classList.replace('bi-pause-fill', 'bi-play-fill');
     }
 });
+video.addEventListener("click", function(){
+    if (video.paused) {
+        video.play();
+    } else{
+        video.pause();
+    }
+})
 
 video.addEventListener("timeupdate", function () {
     let myCurrentTime = video.currentTime;
@@ -50,36 +58,66 @@ progressOut.addEventListener('click', function (event) {
     const duration = video.duration;
     const newTime = (clickX / progressBarWidth) * duration;
     video.currentTime = newTime;
-
 });
+
 volumeProgressOut.addEventListener('click', function (event) {
-    // console.log(event)
     const volumeProgressWidth = volumeProgressOut.offsetWidth;
     const volumeClickX = event.offsetX;
     const volumePercent = (volumeClickX / volumeProgressWidth) * 100;
-    volumeProgressIn.style.width = `${volumePercent}%`
+    volumeProgressIn.style.width = `${volumePercent}%`;
 
-    let volumeChanger = volumeClickX / volumeProgressWidth
-    video.volume = volumeChanger
-
-})
-volumeIcon.addEventListener('click', function () {
-    // Check if the current class is 'bi-volume-mute-fill'
-    if (volumeIcon.classList.contains('bi-volume-mute-fill')) {
-        // Replace 'bi-volume-mute-fill' with 'bi-volume-up-fill'
-        volumeIcon.classList.replace('bi-volume-mute-fill', 'bi-volume-up-fill');
-        video.volume = 0.6;
-        volumeProgressIn.style.width = `${60}%`
-
+    let volumeChanger = volumeClickX / volumeProgressWidth;
+    video.volume = volumeChanger;
     
-
+    if (video.volume === 0) {
+        volumeIcon.classList.remove('bi-volume-up-fill', 'bi-volume-down-fill');
+        volumeIcon.classList.add('bi-volume-mute-fill');
+    } else if (video.volume < 0.5) {
+        volumeIcon.classList.remove('bi-volume-up-fill', 'bi-volume-mute-fill');
+        volumeIcon.classList.add('bi-volume-down-fill');
     } else {
-        // Replace 'bi-volume-up-fill' with 'bi-volume-mute-fill'
+        volumeIcon.classList.remove('bi-volume-mute-fill', 'bi-volume-down-fill');
+        volumeIcon.classList.add('bi-volume-up-fill');
+    }
+    
+});
+
+volumeIcon.addEventListener('click', function () {
+    if (volumeIcon.classList.contains('bi-volume-mute-fill')) {
+        volumeIcon.classList.replace('bi-volume-mute-fill', 'bi-volume-up-fill');
+        video.volume = 1;
+        volumeProgressIn.style.width = `${100}%`;
+    } else {
         volumeIcon.classList.replace('bi-volume-up-fill', 'bi-volume-mute-fill');
         video.volume = 0;
-        volumeProgressIn.style.width = `${0}%`
+        volumeProgressIn.style.width = `${0}%`;
+    }
+
+    
+});
+
+Speed.addEventListener('change', function () {
+    video.playbackRate = Speed.value;
+});
+
+fullScreenButton.addEventListener('click', function () {
+    if (!document.fullscreenElement) {
+        // Enter full-screen mode for the video element
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } 
+        
+        // icon.classList.remove('bi-fullscreen');
+        // icon.classList.add('bi-fullscreen-exit');
+    } else {
+        // Exit full-screen mode
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } 
+      
+        // icon.classList.remove('bi-fullscreen-exit');
+        // icon.classList.add('bi-fullscreen');
     }
 });
-Speed.addEventListener('change', function(){
-    video.playbackRate=Speed.value
-})
+
+
