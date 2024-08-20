@@ -1,68 +1,3 @@
-/* body{
-    margin:0;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-.video video{
-    width: 700px;
-    height: 50%;
-    border-radius: 10px;
-}
-.controls_right{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap:5px;
-}
-.controls_left{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap:5px;
-}
-.timer{
-    display: flex;
-}
-
-.controls{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-.progress_bar{
-    margin-top: 10px;
-}
-.progress_out{
-    /* border:1px solid black; */
-    /* background-color: black;
-    width: 100%;
-    height:7px;
-    border-radius: 10px;
-}
-.progress_in{
-    /* border:1px solid orange; */
-    /* background-color: orange;
-    width: 30%;
-    height:7px;
-    border-radius: 10px;
-}
-.volumebar_out{ */
-    /* border:1px solid black; */
-    /* background-color: black;
-    width: 150px;
-    height:7px;
-    border-radius: 10px;
-}
-.volumebar_in{ */
-    /* border:1px solid orange; */
-    /* background-color: orange;
-    width: 30%;
-    height:7px;
-    border-radius: 10px;
-}  */
-
 * {
     margin: 0;
     padding: 0;
@@ -123,7 +58,7 @@ body {
 .controls_right {
     display: flex;
     align-items: center;
-    gap:5px;
+    gap: 5px;
 }
 
 .play,
@@ -151,7 +86,7 @@ body {
 }
 
 .volumebar_in {
-    width: 50%;
+    width: 100%;
     height: 100%;
     background: #f00;
 }
@@ -176,6 +111,13 @@ body {
     color: #fff;
 }
 
+/* Ensure the video fills the screen in full-screen mode */
+video:fullscreen {
+    width: 100vw;  /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    object-fit: cover; /* Cover the screen, maintaining aspect ratio */
+}
+
 @media (max-width: 600px) {
     .controls {
         flex-direction: column;
@@ -193,3 +135,4 @@ body {
         font-size: 12px;
     }
 }
+
