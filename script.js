@@ -23,8 +23,10 @@ play.addEventListener('click', function () {
 video.addEventListener("click", function(){
     if (video.paused) {
         video.play();
+        play.classList.replace('bi-play-fill', 'bi-pause-fill');
     } else{
         video.pause();
+        play.classList.replace('bi-pause-fill', 'bi-play-fill');
     }
 })
 
@@ -68,7 +70,7 @@ volumeProgressOut.addEventListener('click', function (event) {
 
     let volumeChanger = volumeClickX / volumeProgressWidth;
     video.volume = volumeChanger;
-    
+
     if (video.volume === 0) {
         volumeIcon.classList.remove('bi-volume-up-fill', 'bi-volume-down-fill');
         volumeIcon.classList.add('bi-volume-mute-fill');
